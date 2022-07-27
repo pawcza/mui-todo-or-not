@@ -32,7 +32,7 @@ const App = () => {
 
   const addItem = (title: string) => {
     let updatedTodos = todos;
-    const id = todos.length;
+    const id = todos.length + 1;
     
     updatedTodos.push({id, title, completed: false});
 
