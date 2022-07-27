@@ -22,10 +22,22 @@ const App = () => {
       .then(json => setTodos(json.filter((todo: { id: number }) => todo.id < 15)))
   }, [])
   
-  const updateItem = (id: number, title: string, completed: boolean) =>
-    setTodos([...todos.filter(todo => todo.id !== id), {id, title, completed}])
-  const addItem = (title: string) =>
-    setTodos([...todos, {id: todos.reduce((a, b) => a.id > b.id ? a : b).id + 1, title, completed: false}])
+  const updateItem = (id: number, title: string, completed: boolean) => {
+    const updatedTodos = todos.map(todo =>
+      todo.id === id ? {id, title, completed} : todo
+    )
+
+    setTodos(updatedTodos)
+  }
+
+  const addItem = (title: string) => {
+    let updatedTodos = todos;
+    const id = todos.length;
+    
+    updatedTodos.push({id, title, completed: false});
+
+    setTodos(updatedTodos)
+  }
   
   const removeItem = (id: number) =>
     setTodos(todos.filter(todo => todo.id !== id))
